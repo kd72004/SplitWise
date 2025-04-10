@@ -88,34 +88,29 @@ if __name__ == "__main__":
 # print(expense_data)
 
 def get_result():
-    # Initialize Expense Controller
     expense_controller = ExpenseController()
-
-    # Example data
     name = "Dinner"
     paid_by = "0a3d8f47-67da-432f-9de3-45e121240c12"
     total_amount = 100.00
     split_type = "unequal"
-    group_id = "5bff8d95-0a4c-4ac1-8000-19431ba01510"  # ✅ Group ID
-
-    # User shares
+    group_id = "5bff8d95-0a4c-4ac1-8000-19431ba01510" 
     user_shares = [
         {"borrower_id": "5ae547b7-04b6-4579-b788-6a6742d47db9", "amount": 50.00},
         {"borrower_id": "8c7b45be-9c46-41ae-b909-1b8243bbbf13", "amount": 50.00}
     ]
 
-    # Create expense
+
     expense_data = expense_controller.create_expense(name, paid_by, total_amount, split_type, user_shares, group_id)
     split_transactions = expense_data.get("split_transactions", {})
 
-    result = []  # ✅ Store transaction details
+    result = []  
     for borrower_id, details in split_transactions.items():
         result.append([borrower_id, details['paid_by'], details['amount']])
 
-    print("✅ Processed Result:", result)
-    print("✅ Group ID:", group_id)
+    print("Processed Result:", result)
+    print("Group ID:", group_id)
     
-    return result, group_id  # ✅ Return as tuple
+    return result, group_id  
 
 if __name__ == "__main__":
     get_result()
