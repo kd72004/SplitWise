@@ -1,9 +1,9 @@
-from connection import Database  # Import the Database class
+from connection import Database 
 from expense import Expense
 
 class ExpenseController:
     def __init__(self):
-        self.db = Database()  # Initialize Database connection
+        self.db = Database()  
 
     def create_expense(self, name, paid_by, total_amount, split_type, user_shares, group_id):
         """
