@@ -3,16 +3,15 @@ import customtkinter as ctk
 from user_controller import UserController
 from user import User
 
-# Initialize Database
+
 user_controller = UserController()
 
-# Main App Window
 app = ctk.CTk()
 app.geometry("400x500")
 app.title("User Authentication")
-ctk.set_appearance_mode("dark")  # Modern Dark Mode
+ctk.set_appearance_mode("dark") 
 
-# Frames
+
 main_frame = ctk.CTkFrame(app)
 main_frame.pack(pady=40, padx=20, fill="both", expand=True)
 
@@ -35,7 +34,7 @@ def login_user():
         lbl_message.configure(text="User not found!", text_color="red")
 
 def show_dashboard():
-    for widget in main_frame.winfo_children():  # Clear frame
+    for widget in main_frame.winfo_children(): 
         widget.destroy()
     lbl_dashboard = ctk.CTkLabel(main_frame, text="Dashboard", font=("Arial", 20))
     lbl_dashboard.pack(pady=20)
@@ -43,7 +42,7 @@ def show_dashboard():
     btn_logout.pack()
 
 def show_main_screen():
-    for widget in main_frame.winfo_children():  # Clear frame
+    for widget in main_frame.winfo_children(): 
         widget.destroy()
     create_login_ui()
     create_register_ui()
@@ -55,7 +54,6 @@ lbl_title.pack(pady=10)
 lbl_message = ctk.CTkLabel(main_frame, text="", font=("Arial", 14))
 lbl_message.pack()
 
-# Login UI
 def create_login_ui():
     global entry_user_id
     lbl_login = ctk.CTkLabel(main_frame, text="Login", font=("Arial", 18))
@@ -65,7 +63,7 @@ def create_login_ui():
     btn_login = ctk.CTkButton(main_frame, text="Login", command=login_user)
     btn_login.pack(pady=5)
 
-# Register UI
+
 def create_register_ui():
     global entry_username
     lbl_register = ctk.CTkLabel(main_frame, text="Register", font=("Arial", 18))
@@ -75,7 +73,7 @@ def create_register_ui():
     btn_register = ctk.CTkButton(main_frame, text="Create User", command=register_user)
     btn_register.pack(pady=5)
 
-# Initialize UI
+
 create_login_ui()
 create_register_ui()
 
