@@ -8,7 +8,7 @@ class UserController:
     def add_user(self, user):
         try:
             query = "INSERT INTO users (user_id, user_name) VALUES (%s, %s)"
-            values = (user.get_user_id(), user.get_user_name())  # Use User object's ID
+            values = (user.get_user_id(), user.get_user_name()) 
             self.db.cur.execute(query, values)
             self.db.conn.commit()
             print(f"User added successfully! ID: {user.get_user_id()}")
