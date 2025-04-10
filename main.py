@@ -1,22 +1,20 @@
 import customtkinter as ctk
-from user_controller import UserController  # Import the UserController
-from user import User  # Import User model
-
-# Initialize the database controller
+from user_controller import UserController 
+from user import User  
 user_controller = UserController()
 
-# Main App Class
+
 class SplitwiseApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
         self.title("Splitwise - Login or Register")
         self.geometry("500x400")
-        ctk.set_appearance_mode("dark")  # Dark mode UI
+        ctk.set_appearance_mode("dark")  
 
         self.create_login_ui()
 
-    # 📌 Function to show login UI
+
     def create_login_ui(self):
         self.clear_screen()
 
@@ -31,7 +29,7 @@ class SplitwiseApp(ctk.CTk):
         switch_btn = ctk.CTkButton(self, text="New User? Register Here", command=self.create_register_ui)
         switch_btn.pack(pady=10)
 
-    # 📌 Function to show register UI
+ 
     def create_register_ui(self):
         self.clear_screen()
 
@@ -46,7 +44,7 @@ class SplitwiseApp(ctk.CTk):
         switch_btn = ctk.CTkButton(self, text="Already have an account? Login", command=self.create_login_ui)
         switch_btn.pack(pady=10)
 
-    # 📌 Function to handle user registration
+
     def register_user(self):
         username = self.new_username_entry.get().strip()
         if username:
@@ -57,7 +55,6 @@ class SplitwiseApp(ctk.CTk):
         else:
             ctk.CTkLabel(self, text="Username cannot be empty!", fg_color="red").pack(pady=10)
 
-    # 📌 Function to handle user login
     def login_user(self):
         username = self.username_entry.get().strip()
         users = user_controller.get_all_users()
@@ -69,19 +66,18 @@ class SplitwiseApp(ctk.CTk):
         
         ctk.CTkLabel(self, text="User not found! Please register.", fg_color="red").pack(pady=10)
 
-    # 📌 Function to show dashboard
+
     def show_dashboard(self, username):
         self.clear_screen()
         ctk.CTkLabel(self, text=f"Welcome, {username}!", font=("Arial", 20)).pack(pady=20)
         logout_btn = ctk.CTkButton(self, text="Logout", command=self.create_login_ui)
         logout_btn.pack(pady=20)
 
-    # 📌 Utility function to clear UI
     def clear_screen(self):
         for widget in self.winfo_children():
             widget.destroy()
 
-# Run the App
+
 if __name__ == "__main__":
     app = SplitwiseApp()
     app.mainloop()
