@@ -1,8 +1,8 @@
 from past_main import get_result  
 import heapq
-from connection import Database  # Import Database class
+from connection import Database 
 
-db = Database()  # Establish database connection
+db = Database()  
 
 def greedy(transactions):
     """Compute net balances for each user."""
@@ -18,14 +18,12 @@ def settle_transactions(net_balances, group_id):
     taker_heap = []  
     final_result = []  
 
-    # Split balances into heaps
     for person, balance in net_balances.items():
         if balance < 0:
             heapq.heappush(giver_heap, (balance, person))  
         elif balance > 0:
             heapq.heappush(taker_heap, (-balance, person))  
 
-    # Process settlements
     while giver_heap and taker_heap:
         neg_balance, debtor = heapq.heappop(giver_heap)  
         pos_balance, creditor = heapq.heappop(taker_heap)  
@@ -33,7 +31,7 @@ def settle_transactions(net_balances, group_id):
         settle_amount = min(-neg_balance, -pos_balance)  
         final_result.append((group_id, debtor, creditor, settle_amount))  
 
-        # Update remaining balances
+      
         remaining_debt = neg_balance + settle_amount  
         remaining_credit = pos_balance + settle_amount  
 
@@ -65,33 +63,27 @@ def store_in_database(transactions):
     """, transactions)
     
     db.conn.commit()
-    print("\n✅ Data successfully stored in database.")
+    print("\nData successfully stored in database.")
 
 def display_stored_data():
     """Retrieve and display all stored transactions."""
     db.cur.execute("SELECT * FROM balance_sheet")
     rows = db.cur.fetchall()
 
-    print("\n📌 Stored Transactions in Database:")
+    print("\n Stored Transactions in Database:")
     for row in rows:
         print(row)
 
-# Main Execution Flow
 if __name__ == "__main__":
-    setup_database()  # Ensure database table exists
-
-    # Fetch data dynamically
+    setup_database()  
+  
     data = get_result()  
     result, group_id = data  
 
-    # Compute net balances
     net_balances = greedy(result)
 
-    # Compute transactions
     transactions = settle_transactions(net_balances, group_id)
 
-    # Store results in the database
     store_in_database(transactions)
 
-    # Display stored transactions
     display_stored_data()
