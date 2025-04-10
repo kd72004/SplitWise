@@ -15,7 +15,7 @@ class Expense:
 
         self.save_expense_to_db()  
         self.save_shares_to_db()  
-        # self.split_transactions()
+
 
     def split_transactions(self):
         if self.split_type == "equal":
@@ -29,7 +29,7 @@ class Expense:
         
         transactions = split_strategy.process_split(self.paid_by, self.user_shares, self.total_amount)
 
-        # Convert list of tuples into a dictionary for fast lookup
+
         split_transactions_dict = {borrower_id: {"paid_by": paid_by, "amount": amount} for borrower_id, paid_by, amount in transactions}
         
         return split_transactions_dict
@@ -66,9 +66,9 @@ class Expense:
                 VALUES (%s, %s, %s, %s)
             '''
 
-            for share in self.user_shares:  # Iterate through dictionaries
-                borrower_id = share["borrower_id"]  # Extract borrower_id
-                amount = float(share["amount"])  # Extract and ensure amount is a float
+            for share in self.user_shares:  
+                borrower_id = share["borrower_id"]  
+                amount = float(share["amount"]) 
                 self.db.cur.execute(query, (self.expense_id, borrower_id, self.paid_by, amount))
 
             
