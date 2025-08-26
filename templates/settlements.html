@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Settlements - SplitWise{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Optimized Settlements for {{ group.group_name }}</h2>
+    <p>These are the minimum transactions needed to settle all debts:</p>
+</div>
+
+<div class="card">
+    {% if settlements %}
+    <table>
+        <thead>
+            <tr>
+                <th>Who Pays</th>
+                <th>Who Receives</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for settlement in settlements %}
+            <tr>
+                <td>{{ settlement.borrower_name }}</td>
+                <td>{{ settlement.receiver_name }}</td>
+                <td>₹{{ "%.2f"|format(settlement.amount) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="margin-top: 15px;">
+        <p><strong>Total Settlements: {{ settlements|length }}</strong></p>
+        <p>This optimized solution minimizes the number of transactions needed!</p>
+    </div>
+    {% else %}
+    <p>No settlements needed. All balances are settled!</p>
+    {% endif %}
+    
+    <div style="margin-top: 20px;">
+        <a href="{{ url_for('group_detail', group_id=group_id) }}" class="btn">Back to Group</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ group.group_name }} - SplitWise{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>{{ group.group_name }}</h2>
+    <div style="margin-top: 15px;">
+        <a href="{{ url_for('add_expense', group_id=group_id) }}" class="btn">Add Expense</a>
+        <a href="{{ url_for('add_member', group_id=group_id) }}" class="btn btn-secondary">Add Member</a>
+        <a href="{{ url_for('settlements', group_id=group_id) }}" class="btn btn-secondary">View Settlements</a>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Group Members</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr>
+                <td>{{ member.user_name }}</td>
+                <td>{{ member.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Recent Expenses</h3>
+    {% if expenses %}
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Paid By</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.description }}</td>
+                <td>₹{{ "%.2f"|format(expense.total_amount) }}</td>
+                <td>{{ expense.paid_by_name }}</td>
+                <td>{{ expense.created_at[:10] if expense.created_at else 'N/A' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No expenses found. Add your first expense!</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Add Member - SplitWise{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Add Member to {{ group.group_name }}</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <button type="submit" class="btn">Add Member</button>
+        <a href="{{ url_for('group_detail', group_id=group_id) }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

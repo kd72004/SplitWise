@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Add Expense - SplitWise{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Add Expense to {{ group.group_name }}</h2>
+    <form method="POST" id="expenseForm">
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="total_amount">Total Amount (₹):</label>
+            <input type="number" id="total_amount" name="total_amount" step="0.01" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="paid_by">Paid By:</label>
+            <select id="paid_by" name="paid_by" required>
+                {% for member in members %}
+                <option value="{{ member.user_id }}">{{ member.user_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="split_type">Split Type:</label>
+            <select id="split_type" name="split_type" onchange="toggleCustomAmounts()" required>
+                <option value="equal">Equal Split</option>
+                <option value="custom">Custom Split</option>
+            </select>
+        </div>
+        
+        <div id="customAmounts" style="display: none;">
+            <h4>Enter amounts for each member:</h4>
+            {% for member in members %}
+            <div class="form-group">
+                <label for="amount_{{ member.user_id }}">{{ member.user_name }} (₹):</label>
+                <input type="number" id="amount_{{ member.user_id }}" name="amount_{{ member.user_id }}" step="0.01">
+            </div>
+            {% endfor %}
+        </div>
+        
+        <button type="submit" class="btn">Add Expense</button>
+        <a href="{{ url_for('group_detail', group_id=group_id) }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<script>
+function toggleCustomAmounts() {
+    const splitType = document.getElementById('split_type').value;
+    const customAmounts = document.getElementById('customAmounts');
+    
+    if (splitType === 'custom') {
+        customAmounts.style.display = 'block';
+    } else {
+        customAmounts.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - SplitWise{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Your Groups</h2>
+    <a href="{{ url_for('create_group') }}" class="btn">Create New Group</a>
+</div>
+
+<div class="grid">
+    {% for group in groups %}
+    <div class="card">
+        <h3>{{ group.group_name }}</h3>
+        <p>Group ID: {{ group.group_id }}</p>
+        <div style="margin-top: 15px;">
+            <a href="{{ url_for('group_detail', group_id=group.group_id) }}" class="btn">View Details</a>
+            <a href="{{ url_for('add_member', group_id=group.group_id) }}" class="btn btn-secondary">Add Member</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="card">
+        <p>No groups found. Create your first group!</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
