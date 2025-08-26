@@ -78,8 +78,3 @@ SplitWise/
 - Responsive web interface with dark theme
 - Session-based authentication
 
-## 🤝 Contributing
-Feel free to fork this project and submit pull requests for any improvements.
-
-## 📄 License
-This project is open source and available under the MIT License.
