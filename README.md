@@ -18,6 +18,14 @@ A comprehensive expense sharing platform that helps groups split bills and optim
 ## ⚡ Key Algorithm
 MaxHeap-based settlement optimization that reduces transaction count by 60-70%, minimizing the number of payments needed to settle all group debts.
 
+##    Images : 
+![login/signup](image.png)
+
+![Expense](image-1.png)
+
+![add member](image-2.png)
+
+![settlements ](image-3.png)
 ## 🏃♂️ Quick Start
 
 1. **Clone the repository**
